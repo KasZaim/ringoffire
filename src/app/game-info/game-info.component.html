@@ -1,6 +1,5 @@
 <mat-card style="padding: 6px; opacity: 0.8;">
-    <mat-card-title>Titel</mat-card-title>
-    <mat-card-content>
-        
-    </mat-card-content>
+    <mat-card-title> {{card ? title: 'Please pick a Card'}} </mat-card-title>
+    
+    <mat-card-content> {{description? description : 'Please click on the card stack to select the next card.'}} </mat-card-content>
 </mat-card>
