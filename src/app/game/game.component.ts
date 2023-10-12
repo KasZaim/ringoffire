@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject} from '@angular/core';
 import { Game } from 'src/models/game';
 import {MatDialog} from '@angular/material/dialog';
+import { Firestore,collection, collectionData } from '@angular/fire/firestore';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 
 @Component({
@@ -9,12 +10,14 @@ import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent implements OnInit {
+  firestore: Firestore = inject(Firestore);
   pickCardAnimation = false;
   game;
   currentCard: string = '';
 
   constructor(public dialog: MatDialog) {
     this.game = new Game();
+    const aCollection = collection(this.firestore, 'games');
   }
   ngOnInit(): void {
     this.newGame();
