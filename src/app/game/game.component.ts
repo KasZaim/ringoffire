@@ -18,6 +18,7 @@ export class GameComponent implements OnInit {
   }
   ngOnInit(): void {
     this.newGame();
+    console.log(this.game)
   }
 
   newGame() {
@@ -27,7 +28,7 @@ export class GameComponent implements OnInit {
 
   takeCard() {
     if (!this.pickCardAnimation) {
-      this.currentCard = this.game.stack.pop() || '';
+      this.currentCard = this.game.stack.pop() || '';//nimmt das letzte objekt vom array
       this.pickCardAnimation = true;
       
       console.log(this.game);

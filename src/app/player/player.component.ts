@@ -1,4 +1,5 @@
 import { Component,OnInit,Input } from '@angular/core';
+import { Game } from 'src/models/game';
 
 @Component({
   selector: 'app-player',
@@ -9,10 +10,12 @@ export class PlayerComponent implements OnInit {
   @Input() name: string = '';
   @Input() playerActive:boolean = false;
   
+
   constructor(){
     
   }
   ngOnInit(): void {
+    
     
   }
   
