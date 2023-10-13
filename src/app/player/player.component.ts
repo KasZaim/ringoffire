@@ -8,6 +8,7 @@ import { Game } from 'src/models/game';
 })
 export class PlayerComponent implements OnInit {
   @Input() name: string = '';
+  @Input() img: string = '';
   @Input() playerActive:boolean = false;
   
 

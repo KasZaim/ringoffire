@@ -5,8 +5,16 @@
     <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="name">
   </mat-form-field>
+<mat-form-field>
+  <mat-label>Select Picture</mat-label>
+  <mat-select [(ngModel)]="newPlayerImg">
+    <mat-option *ngFor="let img of game.playersImg" [value]="img">
+      {{img}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button (click)="addNewPlayerImg()" mat-button [disabled]="name.length == 0" [mat-dialog-close]="name" cdkFocusInitial>Ok</button>
+  <button mat-button [disabled]="name.length == 0" [mat-dialog-close]="{name: name, img: newPlayerImg}" cdkFocusInitial>Ok</button>
 </div>

@@ -48,9 +48,10 @@ export class GameComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
-    dialogRef.afterClosed().subscribe((name: string) => {
-      if (name && name.length > 0) {
-        this.game.players.push(name);
+    dialogRef.afterClosed().subscribe((newPlayer: {name: string, img: string}) => {
+      if (newPlayer && newPlayer.name.length > 0 && newPlayer.img.length > 0) {
+        this.game.players.push(newPlayer.name);
+        this.game.currentPlayerImgs.push(newPlayer.img);
       }
     });
   }
