@@ -14,7 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 export class GameComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   pickCardAnimation = false;
-  game: Game;
+  game;
   gamesId: string = '';
   currentCard: string = '';
 
@@ -81,6 +81,7 @@ export class GameComponent implements OnInit {
     if (!this.pickCardAnimation) {
       this.currentCard = this.game.stack.pop() || '';//nimmt das letzte objekt vom array
       this.pickCardAnimation = true;
+      this.saveGame();
 
       console.log(this.game);
 
@@ -90,6 +91,7 @@ export class GameComponent implements OnInit {
       setTimeout(() => {
         this.game.playedCards.push(this.currentCard);
         this.pickCardAnimation = false;
+        this.saveGame();
       }, 1200);
     }
   }
