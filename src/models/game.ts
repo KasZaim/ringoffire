@@ -16,8 +16,18 @@ export class Game {
         for (let i = 1; i < 7; i++) {
             this.playersImg.push('profil ' + i)
         }
-        // this.newPlayerImg = this.game.playersImg.pop()|| '';
         shuffleArray(this.stack);
+    }
+    public toJson(){
+        return {
+            players: this.players,
+            currentPlayerImgs :this.currentPlayerImgs,
+            stack: this.stack,
+            playedCards: this.playedCards,
+            currentPlayer: this.currentPlayer,
+            playersImg:this.playersImg
+
+        };
     }
 }
 
