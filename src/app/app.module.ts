@@ -21,6 +21,7 @@ import { environment } from '../environments/environment';
 import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MatSelectModule } from '@angular/material/select';
+import { AppPlayerMobileComponent } from './app-player-mobile/app-player-mobile.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MatSelectModule } from '@angular/material/select';
     GameComponent,
     PlayerComponent,
     DialogAddPlayerComponent,
-    GameInfoComponent
+    GameInfoComponent,
+    AppPlayerMobileComponent
   ],
   imports: [
     BrowserModule,

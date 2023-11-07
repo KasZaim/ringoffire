@@ -1,0 +1,8 @@
+mat-card{
+    @media (max-width:720px) {
+        min-height: 150px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+}
