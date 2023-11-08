@@ -1,0 +1,21 @@
+
+<h1 mat-dialog-title>Edit Player</h1>
+<div mat-dialog-content>
+  <p>Please enter the new name of the player and select a new picture if desired.</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="player.name">
+  </mat-form-field>
+  <!-- Button zum Öffnen des Bildauswahldialogs -->
+  <button mat-button (click)="openImageSelectDialog()">Change Picture</button>
+  <!-- Optionale Vorschau des ausgewählten Bildes -->
+  <div *ngIf="player.img" class="image-preview">
+    <img [src]="'assets/img/' + player.img" alt="Player Image">
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <!-- Button ist deaktiviert, wenn kein Name oder kein Bild ausgewählt wurde -->
+  <button mat-button [disabled]="!player.name || !player.img" (click)="onSave()">Save</button>
+  <button mat-raised-button  color="warn" (click)="onDelete()">Delete Player</button>
+</div>

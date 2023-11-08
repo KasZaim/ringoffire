@@ -1,9 +1,10 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Game } from 'src/models/game';
 import { MatDialog } from '@angular/material/dialog';
-import { Firestore, addDoc, collection, collectionData, doc, onSnapshot,updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, collectionData, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { ActivatedRoute } from '@angular/router';
+import { EditPlayerComponent } from '../edit-player/edit-player.component';
 
 @Component({
   selector: 'app-game',
@@ -19,26 +20,26 @@ export class GameComponent implements OnInit {
   constructor(private route: ActivatedRoute, public dialog: MatDialog,) {
     this.game = new Game();
     this.route.params.subscribe((params) => {
-    this.gamesId = params["id"];
+      this.gamesId = params["id"];
       if (this.gamesId) {
         let selectedGame = this.getSingleGame("games", params["id"]);
-    console.log(this.gamesId)
-      
-    onSnapshot(selectedGame, (game: any) => {
-        this.game.currentPlayerImgs = game.data().currentPlayerImgs,
-          this.game.stack = game.data().stack,
-          this.game.playedCards = game.data().playedCards,
-          this.game.players = game.data().players,
-          this.game.currentPlayer = game.data().currentPlayer,
-          this.game.playersImg = game.data().playersImg
+        console.log(this.gamesId)
+
+        onSnapshot(selectedGame, (game: any) => {
+          this.game.currentPlayerImgs = game.data().currentPlayerImgs,
+            this.game.stack = game.data().stack,
+            this.game.playedCards = game.data().playedCards,
+            this.game.players = game.data().players,
+            this.game.currentPlayer = game.data().currentPlayer,
+            this.game.playersImg = game.data().playersImg
           this.game.currentCard = game.data().currentCard
           this.game.pickCardAnimation = game.data().pickCardAnimation
 
-      });
-      }else{
+        });
+      } else {
         console.error("Keine Spiel-ID in der URL gefunden.");
       }
-    
+
     });
   }
 
@@ -57,7 +58,7 @@ export class GameComponent implements OnInit {
 
   async saveGame() {
     const gameDoc = this.getSingleGame("games", this.gamesId);
-  
+
     try {
       await updateDoc(gameDoc, this.game.toJson());
       console.log("Spiel erfolgreich gespeichert.");
@@ -65,7 +66,7 @@ export class GameComponent implements OnInit {
       console.error("Fehler beim Speichern des Spiels:", error);
     }
   }
-  
+
 
   getGamesRef() {
     return collection(this.firestore, 'games');
@@ -80,12 +81,16 @@ export class GameComponent implements OnInit {
   }
 
   takeCard() {
+    if (this.game.players.length < 2) {
+      alert("Es müssen mindestens zwei Spieler vorhanden sein, um eine Karte zu ziehen.");
+      return; // Frühzeitige Rückkehr, wenn keine Spieler vorhanden sind
+    }
     if (!this.game.pickCardAnimation) {
       this.game.currentCard = this.game.stack.pop() || '';//nimmt das letzte objekt vom array
       this.game.pickCardAnimation = true;
-      
+
       console.log(this.game);
-      
+
       this.game.currentPlayer++
       this.game.currentPlayer = this.game.currentPlayer % this.game.players.length;
       this.saveGame();
@@ -108,6 +113,61 @@ export class GameComponent implements OnInit {
       }
     });
   }
+
+  // editPlayer(playerId:number){
+  //   const playerToEdit = {
+  //     name: this.game.players[playerId],
+  //     img: this.game.currentPlayerImgs[playerId],
+  //     availableImgs: this.game.playersImg
+  //   };
+  //   console.log(playerToEdit)
+
+  //   const dialogRef = this.dialog.open(EditPlayerComponent, {
+  //     width: '250px',
+  //     data: playerToEdit // Übergeben Sie die aktuellen Spielerdaten an den Dialog
+  //   });
+
+  //   dialogRef.afterClosed().subscribe((editedPlayer: { name: string, img: string }) => {
+  //     if (editedPlayer) {
+  //       // Aktualisieren Sie die Spielerdaten im Spielobjekt
+  //       this.game.players[playerId] = editedPlayer.name;
+  //       this.game.currentPlayerImgs[playerId] = editedPlayer.img;
+  //       // Speichern Sie die aktualisierten Daten in der Datenbank
+  //       this.saveGame();
+  //     }
+  //   });
+
+  // }
+  editPlayer(playerId: number): void {
+    const playerToEdit = {
+      name: this.game.players[playerId],
+      img: this.game.currentPlayerImgs[playerId],
+      availableImgs: this.game.playersImg
+    };
+
+    const dialogRef = this.dialog.open(EditPlayerComponent, {
+      width: '250px',
+      data: playerToEdit // Übergeben Sie die aktuellen Spielerdaten an den Dialog
+    });
+
+    dialogRef.afterClosed().subscribe((result: { name?: string, img?: string, delete?: boolean }) => {
+      if (result?.delete) {
+        // Löschen Sie den Spieler aus dem Spielobjekt
+        this.game.players.splice(playerId, 1);
+        this.game.currentPlayerImgs.splice(playerId, 1);
+        // Speichern Sie die aktualisierten Daten in der Datenbank
+        this.saveGame();
+      } else if (result) {
+        // Aktualisieren Sie die Spielerdaten im Spielobjekt
+        this.game.players[playerId] = result.name ?? '';
+        this.game.currentPlayerImgs[playerId] = result.img ?? '';
+        // Speichern Sie die aktualisierten Daten in der Datenbank
+        this.saveGame();
+      }
+    });
+  }
+
 }
+
 
 

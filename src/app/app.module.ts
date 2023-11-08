@@ -23,6 +23,7 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MatSelectModule } from '@angular/material/select';
 import { AppPlayerMobileComponent } from './app-player-mobile/app-player-mobile.component';
 import { DialogSelectImageComponent } from './dialog-select-image/dialog-select-image.component';
+import { EditPlayerComponent } from './edit-player/edit-player.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { DialogSelectImageComponent } from './dialog-select-image/dialog-select-
     DialogAddPlayerComponent,
     GameInfoComponent,
     AppPlayerMobileComponent,
-    DialogSelectImageComponent
+    DialogSelectImageComponent,
+    EditPlayerComponent
   ],
   imports: [
     BrowserModule,
