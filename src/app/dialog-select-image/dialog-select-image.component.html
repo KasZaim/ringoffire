@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Select an Image</h2>
+<mat-dialog-content class="image-grid">
+  <div *ngFor="let image of data.images" (click)="onImageSelect(image.path)"> <!--beim auswählen eines bildes wird der pfad weitergegeben als parameter-->
+    <img [src]="'assets/img/' + image.path" [alt]="image.name" [class.selected]="selectedImage === image.path">
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+  <button mat-button [disabled]="!selectedImage" (click)="onConfirmSelect()">Select</button>
+</mat-dialog-actions>

@@ -22,6 +22,7 @@ import { provideDatabase, getDatabase } from '@angular/fire/database';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { MatSelectModule } from '@angular/material/select';
 import { AppPlayerMobileComponent } from './app-player-mobile/app-player-mobile.component';
+import { DialogSelectImageComponent } from './dialog-select-image/dialog-select-image.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AppPlayerMobileComponent } from './app-player-mobile/app-player-mobile.
     PlayerComponent,
     DialogAddPlayerComponent,
     GameInfoComponent,
-    AppPlayerMobileComponent
+    AppPlayerMobileComponent,
+    DialogSelectImageComponent
   ],
   imports: [
     BrowserModule,

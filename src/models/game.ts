@@ -16,12 +16,13 @@ export class Game {
             this.stack.push('hearts_' + i);
         }
         this.playersImg = [
-            { name: 'Dirty Harry', path: 'profil 1' },
-            { name: 'Stinky Pete', path: 'profil 2' },
-            { name: 'Black Jack Tully', path: 'profil 3' },
-            { name: 'Whiskey Walt the Weasel', path: 'profil 4' },
-            { name: 'Sly Sarah the Scoundrel', path: 'profil 5' },
-            { name: 'Tipsy Tom the Swindler', path: 'profil 6' }
+            { name: 'Dirty Harry', path: 'profil 1.png' },
+            { name: 'Stinky Pete', path: 'profil 2.png' },
+            { name: 'Boozy Betty the Bluffer', path: 'profil 7.png' },
+            { name: 'Black Jack Tully', path: 'profil 3.png' },
+            { name: 'Whiskey Walt the Weasel', path: 'profil 4.png' },
+            { name: 'Sly Sarah the Scoundrel', path: 'profil 5.png' },
+            { name: 'Tipsy Tom the Swindler', path: 'profil 6.png' }
 
         ];
         shuffleArray(this.stack);

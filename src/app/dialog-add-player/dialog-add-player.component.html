@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add new player</h1>
+<!-- <h1 mat-dialog-title>Add new player</h1>
 <div mat-dialog-content>
   <p>Please enter the name of the new player and select a picture.</p>
   <mat-form-field>
@@ -13,10 +13,30 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <!-- Hinweis, der angezeigt wird, wenn der Name oder das Bild nicht ausgewählt wurde -->
   <p *ngIf="name.length == 0 || !newPlayerImg" class="warning-text">
     Both name and picture must be selected.
   </p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [disabled]="name.length == 0 || !newPlayerImg" [mat-dialog-close]="{name: name, img: newPlayerImg}" cdkFocusInitial>Ok</button>
+</div> -->
+
+
+<h1 mat-dialog-title>Add new player</h1>
+<div mat-dialog-content>
+  <p>Please enter the name of the new player.</p>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="name">
+  </mat-form-field>
+  <p>Select a picture for the player.</p>
+  <!-- Button zum Öffnen des Bildauswahldialogs -->
+  <button mat-button (click)="openImageSelectDialog()">Select Picture</button>
+  <!-- Optionale Vorschau des ausgewählten Bildes -->
+  <div *ngIf="newPlayerImg" class="image-preview">
+    <img [src]="'assets/img/' + newPlayerImg" alt="Player Image">
+  </div>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>

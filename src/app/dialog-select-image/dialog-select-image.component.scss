@@ -1,0 +1,23 @@
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    background-color: brown;
+    img {
+      width: 100%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      &:hover {
+        border-color: brown;
+      }
+    }
+    .selected {
+      border-color: rgba(0, 0, 0, 0.4);
+    }
+  }
+  .mat-mdc-dialog-container .mdc-dialog__surface {
+    background-color: brown !important;
+}
+
+  
+  
