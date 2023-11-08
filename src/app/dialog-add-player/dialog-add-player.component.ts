@@ -11,7 +11,7 @@ import { Game } from 'src/models/game';
 export class DialogAddPlayerComponent implements OnInit {
   name:string = '';
   game: Game;
-  newPlayerImg: string = 'profil 1';
+  newPlayerImg: string = '';
   
   constructor(public dialogRef: MatDialogRef<DialogAddPlayerComponent>,){
     this.game = new Game();

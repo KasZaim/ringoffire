@@ -4,7 +4,7 @@ export class Game {
     public stack: string[] = [];
     public playedCards: string[] = [];
     public currentPlayer: number = 0;
-    public playersImg: string[] = [];
+    public playersImg: { name: string, path: string }[];
     public pickCardAnimation = false;
     public currentCard: string = '';
 
@@ -15,26 +15,31 @@ export class Game {
             this.stack.push('diamonds_' + i);
             this.stack.push('hearts_' + i);
         }
-        for (let i = 1; i < 7; i++) {
-            this.playersImg.push('profil ' + i)
-        }
+        this.playersImg = [
+            { name: 'Dirty Harry', path: 'profil 1' },
+            { name: 'Stinky Pete', path: 'profil 2' },
+            { name: 'Black Jack Tully', path: 'profil 3' },
+            { name: 'Whiskey Walt the Weasel', path: 'profil 4' },
+            { name: 'Sly Sarah the Scoundrel', path: 'profil 5' },
+            { name: 'Tipsy Tom the Swindler', path: 'profil 6' }
+
+        ];
         shuffleArray(this.stack);
     }
-    public toJson(){
+
+    public toJson() {
         return {
             players: this.players,
-            currentPlayerImgs :this.currentPlayerImgs,
+            currentPlayerImgs: this.currentPlayerImgs,
             stack: this.stack,
             playedCards: this.playedCards,
             currentPlayer: this.currentPlayer,
-            playersImg:this.playersImg,
+            playersImg: this.playersImg,
             pickCardAnimation: this.pickCardAnimation,
-            currentCard:this.currentCard
-
+            currentCard: this.currentCard
         };
     }
 }
-
 
 function shuffleArray(arr: (string | number)[]) {
     for (let i = arr.length - 1; i > 0; i--) {

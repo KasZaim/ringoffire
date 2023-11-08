@@ -1,20 +1,25 @@
 <h1 mat-dialog-title>Add new player</h1>
 <div mat-dialog-content>
-  <p>Pleaser enter the Name of the new Player</p>
+  <p>Please enter the name of the new player and select a picture.</p>
   <mat-form-field>
     <mat-label>Name</mat-label>
     <input matInput [(ngModel)]="name">
   </mat-form-field>
-<mat-form-field>
-  <mat-label>Select Picture</mat-label>
-  <mat-select [(ngModel)]="newPlayerImg">
-    <mat-option *ngFor="let img of game.playersImg" [value]="img">
-      {{img}}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
+  <mat-form-field>
+    <mat-label>Select Picture</mat-label>
+    <mat-select [(ngModel)]="newPlayerImg">
+      <mat-option *ngFor="let img of game.playersImg" [value]="img.path">
+        {{ img.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <!-- Hinweis, der angezeigt wird, wenn der Name oder das Bild nicht ausgewählt wurde -->
+  <p *ngIf="name.length == 0 || !newPlayerImg" class="warning-text">
+    Both name and picture must be selected.
+  </p>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [disabled]="name.length == 0" [mat-dialog-close]="{name: name, img: newPlayerImg}" cdkFocusInitial>Ok</button>
+  <!-- Button ist deaktiviert, wenn kein Name oder kein Bild ausgewählt wurde -->
+  <button mat-button [disabled]="name.length == 0 || !newPlayerImg" [mat-dialog-close]="{name: name, img: newPlayerImg}" cdkFocusInitial>Ok</button>
 </div>

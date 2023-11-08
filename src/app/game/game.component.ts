@@ -20,8 +20,8 @@ export class GameComponent implements OnInit {
     this.game = new Game();
     this.route.params.subscribe((params) => {
     this.gamesId = params["id"];
-
-    let selectedGame = this.getSingleGame("games", params["id"]);
+      if (this.gamesId) {
+        let selectedGame = this.getSingleGame("games", params["id"]);
     console.log(this.gamesId)
       
     onSnapshot(selectedGame, (game: any) => {
@@ -35,9 +35,11 @@ export class GameComponent implements OnInit {
           this.game.pickCardAnimation = game.data().pickCardAnimation
 
       });
+      }else{
+        console.error("Keine Spiel-ID in der URL gefunden.");
+      }
+    
     });
-
-    this.addGame();
   }
 
   ngOnInit(): void {
