@@ -16,6 +16,7 @@ export class GameComponent implements OnInit {
   firestore: Firestore = inject(Firestore);
   game;
   gamesId: string = '';
+  gameOver = false;
 
   constructor(private route: ActivatedRoute, public dialog: MatDialog,) {
     this.game = new Game();
@@ -85,7 +86,10 @@ export class GameComponent implements OnInit {
       alert("Es müssen mindestens zwei Spieler vorhanden sein, um eine Karte zu ziehen.");
       return; // Frühzeitige Rückkehr, wenn keine Spieler vorhanden sind
     }
-    if (!this.game.pickCardAnimation) {
+    else if (this.game.stack.length == 0) {
+      this.gameOver = true;
+    }
+    else if (!this.game.pickCardAnimation) {
       this.game.currentCard = this.game.stack.pop() || '';//nimmt das letzte objekt vom array
       this.game.pickCardAnimation = true;
 
@@ -114,30 +118,6 @@ export class GameComponent implements OnInit {
     });
   }
 
-  // editPlayer(playerId:number){
-  //   const playerToEdit = {
-  //     name: this.game.players[playerId],
-  //     img: this.game.currentPlayerImgs[playerId],
-  //     availableImgs: this.game.playersImg
-  //   };
-  //   console.log(playerToEdit)
-
-  //   const dialogRef = this.dialog.open(EditPlayerComponent, {
-  //     width: '250px',
-  //     data: playerToEdit // Übergeben Sie die aktuellen Spielerdaten an den Dialog
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((editedPlayer: { name: string, img: string }) => {
-  //     if (editedPlayer) {
-  //       // Aktualisieren Sie die Spielerdaten im Spielobjekt
-  //       this.game.players[playerId] = editedPlayer.name;
-  //       this.game.currentPlayerImgs[playerId] = editedPlayer.img;
-  //       // Speichern Sie die aktualisierten Daten in der Datenbank
-  //       this.saveGame();
-  //     }
-  //   });
-
-  // }
   editPlayer(playerId: number): void {
     const playerToEdit = {
       name: this.game.players[playerId],

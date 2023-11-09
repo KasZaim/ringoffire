@@ -12,9 +12,13 @@
         border-radius: 100%;
     }
     span{
-        font-size: 32px;
+        font-size: 25px;
         margin-left: 16px;
         color: wheat;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        text-transform: capitalize;
     }
 }
 
